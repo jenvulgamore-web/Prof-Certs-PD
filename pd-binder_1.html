@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Professional Development Binder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  --desk: #D9D3C7;
+  --cover: #2C4A66;
+  --cover-edge: #213A52;
+  --paper: #FFFFFF;
+  --rule: #CFE0EF;
+  --margin: #E58A8A;
+  --ink: #1D2433;
+  --muted: #5A6475;
+  --line: #DCE3EC;
+  --hole: #CBBFAE;
+  --on-tab: #1D2433;
+  --t1: #9ED8CF;
+  --t2: #C9B3E6;
+  --t3: #F2CC8F;
+  --t4: #F2A99B;
+  --script: "Caveat", "Segoe Print", "Bradley Hand", cursive;
+  --body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --desk: #14181F; --cover: #1E3247; --cover-edge: #152433; --paper: #232B38;
+    --rule: #2E3A4B; --margin: #9A5560; --ink: #E8ECF3; --muted: #A5AFC0;
+    --line: #36425A; --hole: #11151C;
+  }
+}
+:root[data-theme="dark"] {
+  --desk: #14181F; --cover: #1E3247; --cover-edge: #152433; --paper: #232B38;
+  --rule: #2E3A4B; --margin: #9A5560; --ink: #E8ECF3; --muted: #A5AFC0;
+  --line: #36425A; --hole: #11151C;
+}
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--desk); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.5; }
+.wrap { max-width: 1000px; margin: 0 auto; padding: 28px 16px 56px; }
+
+/* Binder cover */
+.cover {
+  position: relative; border-radius: 18px; padding: 26px 24px 26px 34px;
+  background:
+    repeating-linear-gradient(45deg, rgba(255,255,255,.035) 0 2px, transparent 2px 5px),
+    var(--cover);
+  box-shadow: 0 0 0 3px var(--cover-edge), 0 14px 28px rgba(0,0,0,.28);
+}
+.label {
+  background: var(--paper); border-radius: 6px; padding: 10px 20px 12px;
+  display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
+  margin: 0 0 22px 0; box-shadow: 0 1px 3px rgba(0,0,0,.35); border: 1px solid var(--line);
+}
+.label h1 { font-family: var(--script); font-weight: 700; font-size: clamp(1.9rem, 4.5vw, 2.7rem); line-height: 1.05; margin: 0; }
+.progress { min-width: 170px; }
+.progress span { display: block; font-size: .88rem; color: var(--muted); margin-bottom: 4px; }
+.bar { height: 8px; background: var(--rule); border-radius: 4px; overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; background: var(--ink); transition: width .3s; }
+
+.stage { display: grid; grid-template-columns: 1fr auto; align-items: start; }
+
+/* Notebook page */
+.paper {
+  position: relative; min-height: 440px; background-color: var(--paper);
+  background-image:
+    linear-gradient(to right, transparent 66px, var(--margin) 66px, var(--margin) 68px, transparent 68px),
+    repeating-linear-gradient(to bottom, transparent 0, transparent 31px, var(--rule) 31px, var(--rule) 32px);
+  background-position: 0 0, 0 14px;
+  border-radius: 4px 8px 8px 4px; padding: 30px 32px 36px 94px;
+  box-shadow: 0 2px 0 var(--line), 0 5px 0 -1px var(--paper), 0 6px 0 -1px var(--line), 0 9px 0 -2px var(--paper), 0 10px 0 -2px var(--line);
+}
+.ring { position: absolute; left: -30px; width: 62px; height: 14px; border-radius: 7px;
+  background: linear-gradient(to bottom, #F4F4F4 0%, #9FA5AE 45%, #6C727C 55%, #D5D9DF 100%);
+  box-shadow: 0 2px 3px rgba(0,0,0,.35); z-index: 2; }
+.hole { position: absolute; left: 14px; width: 22px; height: 22px; border-radius: 50%; background: var(--hole); box-shadow: inset 0 2px 3px rgba(0,0,0,.3); }
+.r1 { top: 52px; } .r2 { top: 50%; margin-top: -7px; } .r3 { bottom: 52px; }
+.h1 { top: 48px; } .h2 { top: 50%; margin-top: -11px; } .h3 { bottom: 48px; }
+
+.page h2 { font-family: var(--script); font-weight: 700; font-size: clamp(2rem, 5vw, 2.8rem); line-height: 1.1; margin: 0 0 8px; }
+.page .intro { color: var(--muted); margin: 0 0 20px; max-width: 58ch; }
+.list { list-style: none; margin: 0; padding: 0; }
+.item { display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: center; padding: 14px 0; border-bottom: 1px dashed var(--line); }
+.check { width: 24px; height: 24px; accent-color: var(--ink); cursor: pointer; }
+.item h3 { margin: 0; font-size: 1.05rem; font-weight: 600; }
+.item p { margin: 2px 0 0; color: var(--muted); font-size: .94rem; }
+.meta { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; font-size: .82rem; color: var(--muted); }
+.pill { border: 1px solid var(--line); border-radius: 999px; padding: 1px 10px; background: var(--paper); }
+.item.done h3 { text-decoration: line-through; text-decoration-color: var(--margin); text-decoration-thickness: 2px; color: var(--muted); }
+.open { display: inline-block; text-decoration: none; font-weight: 600; font-size: .92rem; padding: 8px 16px; border-radius: 8px; color: var(--on-tab); background: var(--c); border: 1px solid rgba(0,0,0,.28); white-space: nowrap; }
+.open:hover { filter: brightness(.95); }
+.open.off { background: transparent; color: var(--muted); border: 1px dashed var(--muted); pointer-events: none; }
+
+/* Divider tabs on the right edge */
+.tabs { display: flex; flex-direction: column; gap: 8px; padding-top: 28px; margin-left: -1px; align-items: flex-start; }
+.tab {
+  appearance: none; border: 1px solid rgba(0,0,0,.3); border-left: 0; cursor: pointer; text-align: left;
+  font: 600 .95rem/1.2 var(--body); color: var(--on-tab); background: var(--c);
+  width: 112px; padding: 14px 12px; border-radius: 0 10px 10px 0; transition: width .15s;
+}
+.tab[aria-selected="true"] { width: 136px; box-shadow: 2px 2px 0 rgba(0,0,0,.25); }
+.tab:focus-visible, .open:focus-visible, .check:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.page:focus-visible { outline: none; }
+
+@media (max-width: 720px) {
+  .cover { padding: 18px 12px 18px 12px; }
+  .stage { grid-template-columns: 1fr; }
+  .tabs { order: -1; flex-direction: row; flex-wrap: wrap; padding: 0 0 0 4px; margin: 0; gap: 6px; align-items: flex-end; }
+  .tab { width: auto; padding: 10px 14px; border: 1px solid rgba(0,0,0,.3); border-bottom: 0; border-radius: 10px 10px 0 0; }
+  .tab[aria-selected="true"] { width: auto; box-shadow: none; padding-bottom: 14px; }
+  .paper { padding: 22px 16px 28px 52px; background-image:
+    linear-gradient(to right, transparent 34px, var(--margin) 34px, var(--margin) 36px, transparent 36px),
+    repeating-linear-gradient(to bottom, transparent 0, transparent 31px, var(--rule) 31px, var(--rule) 32px); }
+  .ring, .hole { display: none; }
+  .item { grid-template-columns: auto 1fr; }
+  .item .open { grid-column: 2; justify-self: start; }
+}
+@media (prefers-reduced-motion: reduce) { .bar i, .tab { transition: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="cover">
+    <header class="label">
+      <h1>Professional Development Binder</h1>
+      <div class="progress" aria-live="polite">
+        <span id="count">0 of 0 complete</span>
+        <div class="bar"><i id="barfill"></i></div>
+      </div>
+    </header>
+
+    <main class="stage">
+      <section class="paper page" id="page" role="tabpanel" tabindex="0"></section>
+      <div class="tabs" role="tablist" aria-label="Binder sections" id="tabs"></div>
+    </main>
+  </div>
+</div>
+
+<script>
+/* =====================================================================
+   EDIT HERE. Each section is a tab. Each item needs:
+   id    - a short unique name (used to remember check marks)
+   title - what the rep sees
+   desc  - one line on what to do (leave "" for none)
+   type  - Read, Watch, Practice, Listen, Tool, etc.
+   mins  - estimated minutes
+   url   - the full link to open (leave "" and it shows "Link coming soon")
+
+   A section can also have  heading: "..."  to replace its page title,
+   and  items: []  if it is just a heading.
+
+   TO ADD LATER: copy the MBlex refresher or NCLEX block below into the
+   list, remove the "//" marks, and fill in the items.
+   ===================================================================== */
+const BINDER = [
+  {
+    id: "bar", name: "Bar Exam", color: "var(--t1)",
+    intro: "Resources and activities for building your Bar Exam knowledge.",
+    items: [
+      { id: "bar-1", title: "Bar Exam Scavenger Hunt", desc: "", type: "Practice", mins: 30, url: "https://docs.google.com/document/d/17KxyyTwRrtgqo1yqExFQVQNrOBB9IIIa7JNOnP6uyjo/edit?usp=sharing" },
+      { id: "bar-2", title: "Bar Exam Talk Track (work with a partner)", desc: "Use the document to live roleplay with a peer.", type: "Practice", mins: 10, url: "https://docs.google.com/document/d/1UzkIWOJrn0e0_PuQpVght5DmLQW4YhQTRzi6pUwumRs/edit?usp=sharing" }
+    ]
+  },
+  {
+    id: "sims", name: "SIMS", color: "var(--t2)",
+    heading: "SIMS completion (on going)",
+    intro: "",
+    items: []
+  }
+  /* ---- Add later (remove the comment marks around a block, and add a comma after the SIMS block above) ----
+  ,{
+    id: "mblex", name: "MBlex refresher", color: "var(--t3)",
+    intro: "A refresher on MBlex to keep your knowledge sharp.",
+    items: [
+      { id: "mblex-1", title: "Title", desc: "", type: "Read", mins: 15, url: "" }
+    ]
+  },
+  {
+    id: "nclex", name: "NCLEX", color: "var(--t4)",
+    intro: "Resources and activities for building your NCLEX knowledge.",
+    items: [
+      { id: "nclex-1", title: "Title", desc: "", type: "Read", mins: 20, url: "" }
+    ]
+  }
+  ---- */
+];
+
+/* ---------- Everything below runs the binder. No need to edit. ---------- */
+const store = {
+  get(){ try { return JSON.parse(localStorage.getItem("pdBinderDone") || "{}"); } catch(e){ return {}; } },
+  set(v){ try { localStorage.setItem("pdBinderDone", JSON.stringify(v)); } catch(e){} }
+};
+let done = store.get();
+let active = 0;
+const tabsEl = document.getElementById("tabs");
+const pageEl = document.getElementById("page");
+
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+
+function renderTabs(){
+  tabsEl.innerHTML = "";
+  BINDER.forEach((s, i) => {
+    const b = document.createElement("button");
+    b.className = "tab"; b.setAttribute("role", "tab");
+    b.setAttribute("aria-selected", i === active);
+    b.style.setProperty("--c", s.color);
+    b.textContent = s.name;
+    b.onclick = () => { active = i; render(); };
+    tabsEl.appendChild(b);
+  });
+}
+
+function renderPage(){
+  const s = BINDER[active];
+  pageEl.style.setProperty("--c", s.color);
+  let html = "<div class='ring r1'></div><div class='ring r2'></div><div class='ring r3'></div>"
+    + "<div class='hole h1'></div><div class='hole h2'></div><div class='hole h3'></div>"
+    + "<h2>" + esc(s.heading || s.name) + "</h2>"
+    + (s.intro ? "<p class='intro'>" + esc(s.intro) + "</p>" : "")
+    + (s.items.length ? "<ul class='list'>" : "");
+  s.items.forEach(it => {
+    const isDone = !!done[it.id];
+    const link = it.url
+      ? "<a class='open' href='" + esc(it.url) + "' target='_blank' rel='noopener'>Open</a>"
+      : "<span class='open off'>Link coming soon</span>";
+    html += "<li class='item" + (isDone ? " done" : "") + "'>"
+      + "<input class='check' type='checkbox' data-id='" + esc(it.id) + "' aria-label='Mark " + esc(it.title) + " complete'" + (isDone ? " checked" : "") + ">"
+      + "<div><h3>" + esc(it.title) + "</h3>" + (it.desc ? "<p>" + esc(it.desc) + "</p>" : "")
+      + "<div class='meta'><span class='pill'>" + esc(it.type) + "</span><span class='pill'>" + esc(it.mins) + " min</span></div></div>"
+      + link + "</li>";
+  });
+  html += s.items.length ? "</ul>" : "";
+  pageEl.innerHTML = html;
+  pageEl.querySelectorAll(".check").forEach(c => {
+    c.onchange = () => { if (c.checked) done[c.dataset.id] = true; else delete done[c.dataset.id]; store.set(done); render(); };
+  });
+}
+
+function renderProgress(){
+  const all = BINDER.flatMap(s => s.items);
+  const n = all.filter(i => done[i.id]).length;
+  const p = all.length ? Math.round(n / all.length * 100) : 0;
+  document.getElementById("count").textContent = n + " of " + all.length + " complete";
+  document.getElementById("barfill").style.width = p + "%";
+}
+
+function render(){ renderTabs(); renderPage(); renderProgress(); }
+render();
+</script>
+</body>
+</html>
